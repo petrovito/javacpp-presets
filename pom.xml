@@ -626,6 +626,7 @@
         <module>cpu_features</module>
         <module>systems</module>
         <module>zlib</module>
+        <module>jbroker</module>
       </modules>
       <properties>
         <javacpp.platform>${os.name}-${os.arch}</javacpp.platform>

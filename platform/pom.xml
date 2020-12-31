@@ -62,6 +62,7 @@
     <module>../skia/platform</module>
     <module>../cpu_features/platform</module>
     <module>../systems/platform</module>
+    <module>../jbroker/platform</module>
   </modules>
 
   <dependencies>
