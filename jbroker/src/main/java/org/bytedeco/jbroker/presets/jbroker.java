@@ -7,8 +7,15 @@ import org.bytedeco.javacpp.tools.*;
 
 @Properties(
     value = {
-        @Platform(include = "<zlib.h>", link = "z@.1#"),
-        @Platform(value = "windows", link = "zlib#")
+        @Platform(
+        		includepath = "/usr/local/include",
+        		include = {
+        				"broker/broker.hh",
+        				"broker/endpoint.hh",
+        		},
+        		link = {"broker", "caf_core", "caf_io", "caf_openssl"},
+        		compiler = "cpp17"
+        		),
     },
     target = "org.bytedeco.jbroker",
     global = "org.bytedeco.jbroker.global.jbroker"
@@ -17,6 +24,9 @@ public class jbroker implements InfoMapper {
     static { Loader.checkVersion("org.bytedeco", "jbroker"); }
 
     public void map(InfoMap infoMap) {
+//    	infoMap.put(new Info("broker::endpoint").pointerTypes("Endpoint"));
+//    	infoMap.put(new Info("full::namespace::FunctioNameInCPP").javaNames("MethodNameInJava"));
+		/*
         infoMap.put(new Info("ZEXTERN", "ZEXPORT", "z_const", "zlib_version").cppTypes().annotations())
         .put(new Info("FAR").cppText("#define FAR"))
         .put(new Info("OF").cppText("#define OF(args) args"))
@@ -29,6 +39,6 @@ public class jbroker implements InfoMapper {
         .put(new Info("gzFile_s").pointerTypes("gzFile"))
         .put(new Info("gzFile").valueTypes("gzFile"))
         .put(new Info("Z_LARGE64", "!defined(ZLIB_INTERNAL) && defined(Z_WANT64)").define(false))
-        .put(new Info("inflateGetDictionary", "gzopen_w", "gzvprintf").skip());
+        .put(new Info("inflateGetDictionary", "gzopen_w", "gzvprintf").skip());*/
     }
 }

@@ -7,6 +7,10 @@ if [[ -z "$PLATFORM" ]]; then
     exit
 fi
 
+#mkdir -p $PLATFORM
+#cp -r -u ../../../broker/* $PLATFORM/
+
+: '
 ZLIB_VERSION=1.2.11
 download http://zlib.net/zlib-$ZLIB_VERSION.tar.gz zlib-$ZLIB_VERSION.tar.gz
 mkdir -p $PLATFORM
@@ -67,5 +71,5 @@ case $PLATFORM in
         echo "Error: Platform \"$PLATFORM\" is not supported"
         ;;
 esac
-
+'
 cd ../..
