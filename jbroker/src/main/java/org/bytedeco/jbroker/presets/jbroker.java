@@ -1,8 +1,11 @@
 package org.bytedeco.jbroker.presets;
 
+
 import org.bytedeco.javacpp.*;
 import org.bytedeco.javacpp.annotation.*;
 import org.bytedeco.javacpp.tools.*;
+
+
 
 
 @Properties(
@@ -10,11 +13,12 @@ import org.bytedeco.javacpp.tools.*;
         @Platform(
         		includepath = "/usr/local/include",
         		include = {
-        				"broker/broker.hh",
-        				"broker/endpoint.hh",
+        				//"broker/broker.hh",
+        				"jconnect.hpp",
         		},
-        		link = {"broker", "caf_core", "caf_io", "caf_openssl"},
-        		compiler = "cpp17"
+        		link = {"broker", "caf_core", "caf_io", "caf_openssl", "jconnect"},
+        		compiler = "cpp17",
+        		resource = {"include", "lib"}
         		),
     },
     target = "org.bytedeco.jbroker",
@@ -22,10 +26,20 @@ import org.bytedeco.javacpp.tools.*;
 )
 public class jbroker implements InfoMapper {
     static { Loader.checkVersion("org.bytedeco", "jbroker"); }
+    
 
     public void map(InfoMap infoMap) {
+    	infoMap.put(new Info("endpoint").skip());
+    	infoMap.put(new Info("data").skip());
+    	infoMap.put(new Info("std::vector<std::string>").pointerTypes("StringVector").define());
+    	infoMap.put(new Info("std::vector<JData>").pointerTypes("DataVector").define());
+//    	infoMap.put(new Info("endpoint.hh").
+//    			linePatterns("  /// Publishes a message as vector.", 
+//    					"  void publish(topic t, std::initializer_list<data> xs);").skip());
 //    	infoMap.put(new Info("broker::endpoint").pointerTypes("Endpoint"));
-//    	infoMap.put(new Info("full::namespace::FunctioNameInCPP").javaNames("MethodNameInJava"));
+//    	infoMap.put(new Info("vector").pointerTypes("EVVecs").define());
+//    	infoMap.put(new Info("broker::endpoint::publish(topic t, std::initializer_list<data> xs)").
+//    			javaText("  public native void publish(@ByVal topic t, @ByVal initializer_list<data> xs);"));
 		/*
         infoMap.put(new Info("ZEXTERN", "ZEXPORT", "z_const", "zlib_version").cppTypes().annotations())
         .put(new Info("FAR").cppText("#define FAR"))

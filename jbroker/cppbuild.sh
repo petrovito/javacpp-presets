@@ -7,8 +7,17 @@ if [[ -z "$PLATFORM" ]]; then
     exit
 fi
 
-#mkdir -p $PLATFORM
-#cp -r -u ../../../broker/* $PLATFORM/
+mkdir -p $PLATFORM
+mkdir -p $PLATFORM/include
+mkdir -p $PLATFORM/lib
+cp -r -u ../jconnect.hpp $PLATFORM/include/
+cp -r -u ../jconnect.cpp $PLATFORM/include/
+
+cd $PLATFORM/include
+g++ -std=c++17 -c -fpic jconnect.cpp
+g++ -shared -o ../lib/libjconnect.so jconnect.o
+
+cd ../../
 
 : '
 ZLIB_VERSION=1.2.11
